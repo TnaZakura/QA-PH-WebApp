@@ -20,6 +20,9 @@ ${InCompanyName}        name:companyName
 ${InCompanyURL}         name:companyUrl
 ${InComments}           name:detail
 
+#Radio button
+${rdSharedTeam}         xpath://div[2]/main/div/div[4]/div[2]/div/div[1]/label
+
 ${BTNSend}              xpath://div[2]/main/div/div[8]/div/button
 ${BTNTellUsMore}        xpath://div[2]/main/div/div[6]/div/button
 ${GetInTouch}           xpath://*/div[2]/main/div/div[4]/div/div[3]/a/button
@@ -41,6 +44,8 @@ User fills the "contact us" form
     User types information            ${InBusinessEmail}    ${Email}
     User types information            ${InCompanyName}      ${Company}
     User types information            ${InCompanyURL}       ${CompanyURL}
+    Click Element                     ${rdSharedTeam}
+    User Selects all checkboxes
     Click Element                     ${BTNTellUsMore}
     Wait Until Element Is Visible     ${InComments}
     User types information            ${InComments}         ${Price}
@@ -50,6 +55,14 @@ User "Submits" the form
     Double Click Element               ${BTNSend}
     Sleep  3s
 
-
+User Selects all checkboxes
+    ${index2}=    Set Variable    1
+    FOR    ${index}    IN RANGE  5
+        Exit For Loop If    ${index} > 4
+        Click Element   //div[2]/main/div/div[4]/div[1]/div/div[${index2}]/input
+        Sleep  1s
+        ${index2}=    Evaluate    ${index2} + 1
+        ${index}=    Evaluate    ${index} + 1
+    END
 
 
